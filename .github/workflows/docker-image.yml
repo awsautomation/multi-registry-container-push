@@ -18,11 +18,6 @@ jobs:
       - name: Build Docker image
         run: docker build -t py-app:latest .
 
-      - name: Tag and push to ECR
-        run: |
-          docker tag py-app:latest ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
-          docker push ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
-
       - name: Tag and push to Docker Hub
         run: |
           docker tag py-app:latest ${{ secrets.DOCKER_REPOSITORY }}:latest
