@@ -4,7 +4,6 @@ on:
   push:
     branches: [ main ]
 
-
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -13,14 +12,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Login to Docker Hub
       - name: Login to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
+      # Build Docker image
       - name: Build Docker image
         run: docker build -t py-app:latest .
 
+      # Tag and push to Docker Hub
       - name: Tag and push to Docker Hub
         run: |
           docker tag py-app:latest ${{ secrets.DOCKER_REPOSITORY }}:latest
           docker push ${{ secrets.DOCKER_REPOSITORY }}:latest
-      
+
+      # Login to AWS ECR
+      - name: Login to AWS ECR
+        uses: aws-actions/amazon-ecr-login@v1
+
+      # Tag and push to ECR
+      - name: Tag and push to ECR
+        run: |
+          docker tag py-app:latest ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+          docker push ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
