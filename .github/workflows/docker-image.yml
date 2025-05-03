@@ -26,11 +26,13 @@ jobs:
           docker tag py-app:latest ${{ secrets.DOCKER_REPOSITORY }}:latest
           docker push ${{ secrets.DOCKER_REPOSITORY }}:latest
 
+      # Set AWS region as environment variable
+      - name: Set AWS Region
+        run: echo "AWS_REGION=ap-south-1" >> $GITHUB_ENV  # Replace with your desired region
+
       # Login to AWS ECR
       - name: Login to AWS ECR
         uses: aws-actions/amazon-ecr-login@v1
-        with:
-          region: ap-south-1
 
       # Tag and push to ECR
       - name: Tag and push to ECR
