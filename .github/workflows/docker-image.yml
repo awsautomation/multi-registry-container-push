@@ -18,6 +18,7 @@ jobs:
       - name: Build Docker image
         run: docker build -t py-app:latest .
 
+
       # Tag and push to Docker Hub
       - name: Tag and push to Docker Hub
         run: |
