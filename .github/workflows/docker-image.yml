@@ -4,6 +4,7 @@ on:
   push:
     branches: [ main ]
 
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -22,3 +23,4 @@ jobs:
         run: |
           docker tag py-app:latest ${{ secrets.DOCKER_REPOSITORY }}:latest
           docker push ${{ secrets.DOCKER_REPOSITORY }}:latest
+      
