@@ -4,7 +4,6 @@ on:
   push:
     branches: [ main ]
 
-
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -19,8 +18,21 @@ jobs:
       - name: Build Docker image
         run: docker build -t py-app:latest .
 
+      # Tag and push to Docker Hub
       - name: Tag and push to Docker Hub
         run: |
-          docker tag py-app:latest ${{ secrets.DOCKER_REPOSITORY }}:latest
-          docker push ${{ secrets.DOCKER_REPOSITORY }}:latest
-      
+          docker tag py-app:latest ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPOSITORY }}:latest
+
+      # Login to Amazon ECR
+      - name: Login to Amazon ECR
+        id: login-ecr
+        run: |
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
+          docker login --username AWS --password-stdin ${{ secrets.ECR_REGISTRY }}
+
+      # Tag and push to ECR
+      - name: Tag and push to ECR
+        run: |
+          docker tag py-app:latest ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
+          docker push ${{ secrets.ECR_REGISTRY }}/${{ secrets.ECR_REPOSITORY }}:latest
