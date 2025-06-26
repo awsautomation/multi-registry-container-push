@@ -24,6 +24,7 @@ This project demonstrates how to use **GitHub Actions** to build a Docker image 
 - Amazon ECR
 - Docker Hub
 - AWS CLI
+- Azure
 
 ---
 
@@ -33,17 +34,24 @@ This project demonstrates how to use **GitHub Actions** to build a Docker image 
 
 Go to your repo → **Settings** → **Secrets and Variables** → **Actions**, and add:
 
-| Name                    | Description                              |
-|-------------------------|------------------------------------------|
-| `AWS_ACCESS_KEY_ID`     | From AWS IAM user                        |
-| `AWS_SECRET_ACCESS_KEY` | From AWS IAM user                        |
-| `ECR_REGISTRY`          | e.g., `123456789012.dkr.ecr.ap-southeast-2.amazonaws.com` |
-| `ECR_REPOSITORY`        | e.g., `my-app`                           |
-| `DOCKER_USERNAME`       | Docker Hub username                      |
-| `DOCKER_PASSWORD`       | Docker Hub access token or password      |
-| `DOCKER_REPOSITORY`     | e.g., `yourdockerhubuser/my-app`         |
+| Secret Name             | Description                                                              |
+| ----------------------- | ------------------------------------------------------------------------ |
+| `DOCKER_USERNAME`       | Docker Hub username                                                      |
+| `DOCKER_PASSWORD`       | Docker Hub password or token                                             |
+| `DOCKER_REPOSITORY`     | Docker Hub repo (e.g., `yourname/py-app`)                                |
+| `AWS_ACCESS_KEY_ID`     | AWS access key                                                           |
+| `AWS_SECRET_ACCESS_KEY` | AWS secret key                                                           |
+| `ECR_REGISTRY`          | ECR registry URL (e.g., `123456789012.dkr.ecr.ap-south-1.amazonaws.com`) |
+| `ECR_REPOSITORY`        | ECR repo name (e.g., `py-app`)                                           |
+| `AZURE_CLIENT_ID`       | Azure SP client ID                                                       |
+| `AZURE_CLIENT_SECRET`   | Azure SP client secret                                                   |
+| `AZURE_TENANT_ID`       | Azure tenant ID                                                          |
+| `AZURE_SUBSCRIPTION_ID` | Azure subscription ID                                                    |
+| `ACR_NAME`              | Azure Container Registry name (without domain, e.g., `myregistry`)       |
+| `APP_SERVICE_NAME`      | Name of the Azure App Service (e.g., `myapp-service`)                    |
 
 ---
+
 
 ### 2. 🧪 Sample Dockerfile
 
